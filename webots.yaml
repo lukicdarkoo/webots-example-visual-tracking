@@ -1,6 +1,4 @@
 animation:
   worlds:
-    - file: worlds/tutorial_1.wbt
-      duration: 5
-    - file: worlds/tutorial_6.wbt
+    - file: worlds/visual_tracking.wbt
       duration: 10

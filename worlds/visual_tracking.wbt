@@ -1,0 +1,60 @@
+#VRML_SIM R2020b utf8
+WorldInfo {
+  coordinateSystem "NUE"
+  info [
+    "This example shows an example of a robot following a red ball in Webots."
+    "The robot uses a simple HSV color thresholding (using OpenCV) to detect the red ball and a simple P controller to track it."
+  ]
+  title "Webots Visual Tracking Example"
+}
+Viewpoint {
+  orientation -0.6092060123937122 -0.762994004791192 -0.21612076049294981 0.8704417998714729
+  position -1.6285060083108773 1.7747276002272767 1.9097175918198783
+}
+RectangleArena {
+  floorSize 3 3
+}
+TexturedBackground {
+}
+TexturedBackgroundLight {
+}
+TurtleBot3Burger {
+  hidden rotation_4 0.9999906836545638 -0.004316546797710842 5.274601714776401e-06 0.00774714970986447
+  controller "visual_tracker"
+  extensionSlot [
+    Camera {
+      translation 0 0.02 -0.05
+      children [
+        Shape {
+          appearance PBRAppearance {
+          }
+          geometry Box {
+            size 0.1 0.03 0.03
+          }
+        }
+      ]
+    }
+  ]
+}
+DEF BALL Solid {
+  translation 0 0.2 -1
+  children [
+    Shape {
+      appearance PBRAppearance {
+        baseColor 1 0 0
+        metalness 0
+        normalMapFactor 0
+        occlusionMapStrength 0
+        emissiveIntensity 0
+      }
+      geometry Sphere {
+        radius 0.1
+        subdivision 4
+      }
+    }
+  ]
+}
+Robot {
+  controller "ball_supervisor"
+  supervisor TRUE
+}

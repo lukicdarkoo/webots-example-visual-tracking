@@ -44,20 +44,20 @@ def get_image_from_camera():
 # Main control loop
 while robot.step(timestep) != -1:
     img = get_image_from_camera()
-    
+
     # Segment the image by color in HSV color space
     img = cv2.cvtColor(img, cv2.COLOR_RGB2HSV)
-    mask = cv2.inRange(img, np.array([50, 150, 0]), np.array([200, 230, 255])) 
-    
+    mask = cv2.inRange(img, np.array([50, 150, 0]), np.array([200, 230, 255]))
+
     # Find the largest segmented contour (red ball) and it's center
     contours, _ = cv2.findContours(mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_NONE)
     largest_contour = max(contours, key=cv2.contourArea)
     largest_contour_center = cv2.moments(largest_contour)
     center_x = int(largest_contour_center['m10'] / largest_contour_center['m00'])
-    
+
     # Find error (ball distance from image center)
     error = camera.getWidth() / 2 - center_x
-   
-    # Use simple proportional controller to match follow the ball 
+
+    # Use simple proportional controller to follow the ball
     motor_left.setVelocity(- error * P_COEFFICIENT)
     motor_right.setVelocity(error * P_COEFFICIENT)

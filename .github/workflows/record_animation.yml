@@ -9,4 +9,4 @@ jobs:
       - name: Check out the repo
         uses: actions/checkout@v2
       - name: Record and deploy the animation
-        uses: cyberbotics/webots-animation-action@master
+        uses: cyberbotics/webots-animation-action@develop

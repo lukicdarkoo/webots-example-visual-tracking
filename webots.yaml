@@ -1,3 +1,8 @@
+init: |
+  apt install -y \
+    python3-numpy \
+    python3-opencv
+
 animation:
   worlds:
     - file: worlds/visual_tracking.wbt

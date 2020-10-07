@@ -2,8 +2,8 @@
 WorldInfo {
   coordinateSystem "NUE"
   info [
-    "This example shows an example of a robot following a red ball in Webots."
-    "The robot uses a simple HSV color thresholding (using OpenCV) to detect the red ball and a simple P controller to track it."
+    "This example shows a robot following a red ball in Webots."
+    "The robot uses a HSV thresholding (using OpenCV) to detect the red ball and a simple P controller to track it."
   ]
   title "Webots Visual Tracking Example"
 }

@@ -1,4 +1,4 @@
-"""This controller makes robot following the red ball."""
+"""This controller makes the robot following the red ball."""
 
 import cv2
 import numpy as np

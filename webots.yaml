@@ -1,3 +1,5 @@
+type: demo
+
 init: |
   apt install -y \
     python3-numpy \

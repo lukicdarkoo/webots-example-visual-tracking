@@ -9,6 +9,6 @@ jobs:
       - name: Check out the repo
         uses: actions/checkout@v2
       - name: Record and deploy the animation
-        uses: cyberbotics/webots-animation-action@feature-competition
+        uses: cyberbotics/webots-animation-action@fix-upgrade-animation
         env: 
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

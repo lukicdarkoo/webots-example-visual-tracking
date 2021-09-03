@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Webots Simulation Preview</title>
+  <style>
+    html,
+    body {
+      padding: 0;
+      margin: 0;
+      height: 100%;
+      width: 100%;
+      display: flex;
+      flex-flow: row;
+      color: #333;
+    }
+
+    a, a:visited {
+      color: #0a3d62;
+      text-decoration: none;
+    }
+
+    #webots-view {
+      width: calc(100% - 220px);
+      background-color: black;
+    }
+
+    #sidebar {
+      flex: 1;
+      padding: 12px;
+    }
+
+    .simulation-item {
+      margin: 24px 0;
+    }
+
+    .simulation-item h3,
+    .simulation-item p {
+      margin: 0;
+      padding: 5px 0;
+    }
+  </style>
+  <script type="module" src="https://www.cyberbotics.com/wwi/R2021c/WebotsAnimation.js"></script>
+  <script>
+    const WORLD_LIST = [{'title': 'Webots Visual Tracking Example', 'description': 'This example shows a robot following a red ball in Webots. The robot uses a HSV thresholding (using OpenCV) to detect the red ball and a simple P controller to track it.', 'name': 'visual_tracking'}];
+    let view = null;
+    let currentWorld = null;
+
+    function showWorld(worldName) {
+      if (view.active())
+        view.close();
+      
+      view.setNames(worldName);
+      view.play();
+    }
+
+    function onWorldClicked(e, worldName) {
+      e.preventDefault();
+      window.location.replace('#' + worldName);
+    }
+
+    function createSidebarItems() {
+      const sidebar = document.getElementById('sidebar');
+      for (const world of WORLD_LIST) {
+        sidebar.innerHTML += `
+          <div class="simulation-item">
+            <a href="javascript:void(0)" onclick="onWorldClicked(event, '${world.name}')">
+              <h3>${world.title} (${world.name})</h3>
+            </a>
+            <p>${world.description}</p>
+            <a href="${world.name}.html" target="_blank">[extern]</a>
+          </div>
+        `;
+      }
+    }
+
+    function getWorldFromHash() {
+      if (window.location.hash) {
+        const worldName = window.location.hash.substring(1);
+        const matchingWorld = WORLD_LIST.find(element => element.name == worldName);
+        if (matchingWorld) {
+          return matchingWorld;
+        }
+        return null;
+      }
+      return null;
+    }
+
+    function showWorldFromHash() {
+      currentWorld = getWorldFromHash();
+      if (!currentWorld) {
+        window.location.replace('#' + WORLD_LIST[0].name);
+        return;
+      }
+      console.log(currentWorld);
+      showWorld(currentWorld.name);
+    }
+
+    function init() {
+      view = document.getElementsByTagName('webots-animation')[0];
+      createSidebarItems();
+      showWorldFromHash();
+    }
+
+    function hashChanged() {
+      showWorldFromHash();
+    }
+
+    window.addEventListener('load', init, false);
+    window.addEventListener('hashchange', hashChanged);
+  </script>
+</head>
+
+<body>
+  <div id="webots-view">
+    <webots-animation></webots-animation>
+  </div>
+  <div id="sidebar">
+    <h2>List of simulations</h2>
+  </div>
+</body>
+
+</html>

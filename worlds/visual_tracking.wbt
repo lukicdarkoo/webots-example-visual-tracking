@@ -1,6 +1,11 @@
-#VRML_SIM R2020b utf8
+#VRML_SIM R2023a utf8
+
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023a/projects/objects/floors/protos/RectangleArena.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023a/projects/objects/backgrounds/protos/TexturedBackground.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023a/projects/objects/backgrounds/protos/TexturedBackgroundLight.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023a/projects/robots/robotis/turtlebot/protos/TurtleBot3Burger.proto"
+
 WorldInfo {
-  coordinateSystem "NUE"
   info [
     "This example shows a robot following a red ball in Webots."
     "The robot uses a HSV thresholding (using OpenCV) to detect the red ball and a simple P controller to track it."
@@ -8,8 +13,8 @@ WorldInfo {
   title "Webots Visual Tracking Example"
 }
 Viewpoint {
-  orientation -0.6092060123937122 -0.762994004791192 -0.21612076049294981 0.8704417998714729
-  position -1.6285060083108773 1.7747276002272767 1.9097175918198783
+  orientation -0.43631205283563945 0.2707574430126094 0.8580921859588418 2.162987229816244
+  position 2.156624762995514 -3.9067206484330494 6.099611901250708
 }
 RectangleArena {
   floorSize 3 3
@@ -19,17 +24,17 @@ TexturedBackground {
 TexturedBackgroundLight {
 }
 TurtleBot3Burger {
-  hidden rotation_4 0.9999906836545638 -0.004316546797710842 5.274601714776401e-06 0.00774714970986447
+  hidden rotation_4 0.9999906836545637 -0.004316546797710844 5.274601714776403e-06 0.00774714970986447
   controller "visual_tracker"
   extensionSlot [
     Camera {
-      translation 0 0.02 -0.05
+      translation 0.02 0 0.03
       children [
         Shape {
           appearance PBRAppearance {
           }
           geometry Box {
-            size 0.1 0.03 0.03
+            size 0.03 0.1 0.03
           }
         }
       ]
@@ -37,7 +42,7 @@ TurtleBot3Burger {
   ]
 }
 DEF BALL Solid {
-  translation 0 0.2 -1
+  translation 1 0 0.2
   children [
     Shape {
       appearance PBRAppearance {

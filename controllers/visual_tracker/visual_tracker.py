@@ -15,35 +15,21 @@ robot = Robot()
 timestep = int(robot.getBasicTimeStep())
 
 # Initialize camera
-camera = robot.getCamera('camera')
+camera = robot.getDevice('camera')
 camera.enable(timestep)
 
 # Initialize motors
-motor_left = robot.getMotor('left wheel motor')
-motor_right = robot.getMotor('right wheel motor')
+motor_left = robot.getDevice('left wheel motor')
+motor_right = robot.getDevice('right wheel motor')
 motor_left.setPosition(float('inf'))
 motor_right.setPosition(float('inf'))
 motor_left.setVelocity(0)
 motor_right.setVelocity(0)
 
 
-def get_image_from_camera():
-    """
-    Take an image from the camera device and prepare it for OpenCV processing:
-    - convert data type,
-    - convert to RGB format (from BGRA), and
-    - rotate & flip to match the actual image.
-    """
-    img = camera.getImageArray()
-    img = np.asarray(img, dtype=np.uint8)
-    img = cv2.cvtColor(img, cv2.COLOR_BGRA2RGB)
-    img = cv2.rotate(img, cv2.ROTATE_90_CLOCKWISE)
-    return cv2.flip(img, 1)
-
-
 # Main control loop
 while robot.step(timestep) != -1:
-    img = get_image_from_camera()
+    img = np.frombuffer(camera.getImage(), dtype=np.uint8).reshape((camera.getHeight(), camera.getWidth(), 4))
 
     # Segment the image by color in HSV color space
     img = cv2.cvtColor(img, cv2.COLOR_RGB2HSV)

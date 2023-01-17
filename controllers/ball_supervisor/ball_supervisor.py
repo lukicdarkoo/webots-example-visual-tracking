@@ -10,10 +10,10 @@ timestep = int(supervisor.getBasicTimeStep())
 ball = supervisor.getFromDef('BALL')
 ball_translation = ball.getField('translation')
 
-angle = -pi/2
+angle = 0
 while supervisor.step(timestep) != -1:
     x = cos(angle)
     y = sin(angle)
-    ball_translation.setSFVec3f([x, 0.2, y])
+    ball_translation.setSFVec3f([x, y, 0.2])
     
     angle += 0.01
